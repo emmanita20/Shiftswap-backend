@@ -1,0 +1,498 @@
+{
+	"info": {
+		"_postman_id": "hospital-shift-management-api",
+		"name": "Hospital Shift Management API",
+		"description": "Complete API collection for Hospital Shift Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Dr. Sarah Johnson\",\n  \"email\": \"sarah.johnson@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"staff\",\n  \"department\": \"Nursing\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Register Manager",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Dr. Emily Martinez\",\n  \"email\": \"emily.martinez@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"manager\",\n  \"department\": \"Nursing\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.data && jsonData.data.token) {",
+									"        pm.environment.set(\"token\", jsonData.data.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"sarah.johnson@hospital.com\",\n  \"password\": \"securepassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Shifts",
+			"item": [
+				{
+					"name": "Create Shift",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Night Shift - Emergency Department\",\n  \"department\": \"Emergency Medicine\",\n  \"date\": \"2024-01-15\",\n  \"startTime\": \"20:00\",\n  \"endTime\": \"08:00\",\n  \"isEmergency\": false,\n  \"incentiveAmount\": 50,\n  \"incentiveDescription\": \"Night shift bonus\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/shifts",
+							"host": ["{{base_url}}"],
+							"path": ["shifts"]
+						}
+					}
+				},
+				{
+					"name": "Get Available Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/shifts/available",
+							"host": ["{{base_url}}"],
+							"path": ["shifts", "available"]
+						}
+					}
+				},
+				{
+					"name": "Get Emergency Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/shifts/emergency",
+							"host": ["{{base_url}}"],
+							"path": ["shifts", "emergency"]
+						}
+					}
+				},
+				{
+					"name": "Get My Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/shifts/my-shifts",
+							"host": ["{{base_url}}"],
+							"path": ["shifts", "my-shifts"]
+						}
+					}
+				},
+				{
+					"name": "Get Shift by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/shifts/:id",
+							"host": ["{{base_url}}"],
+							"path": ["shifts", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "shift_id_here"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Swap Requests",
+			"item": [
+				{
+					"name": "Create Swap Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"shiftId\": \"shift_id_here\",\n  \"swapType\": \"swap\",\n  \"preferredReplacementShifts\": [],\n  \"reason\": \"Need to attend family event\",\n  \"responseDeadline\": \"2026-01-10T17:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/swap-requests",
+							"host": ["{{base_url}}"],
+							"path": ["swap-requests"]
+						}
+					}
+				},
+				{
+					"name": "Get My Swap Requests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/swap-requests/my-requests",
+							"host": ["{{base_url}}"],
+							"path": ["swap-requests", "my-requests"]
+						}
+					}
+				},
+				{
+					"name": "Get Swap Request by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/swap-requests/:id",
+							"host": ["{{base_url}}"],
+							"path": ["swap-requests", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "request_id_here"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Manager",
+			"item": [
+				{
+					"name": "Get Pending Requests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/manager/pending-requests",
+							"host": ["{{base_url}}"],
+							"path": ["manager", "pending-requests"]
+						}
+					}
+				},
+				{
+					"name": "Approve Swap Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/manager/approve-request/:id",
+							"host": ["{{base_url}}"],
+							"path": ["manager", "approve-request", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "request_id_here"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Reject Swap Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"Insufficient credentials\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/manager/reject-request/:id",
+							"host": ["{{base_url}}"],
+							"path": ["manager", "reject-request", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "request_id_here"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Facilities",
+			"item": [
+				{
+					"name": "Get All Facilities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/facilities",
+							"host": ["{{base_url}}"],
+							"path": ["facilities"]
+						}
+					}
+				},
+				{
+					"name": "Get Facility by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/facilities/:id",
+							"host": ["{{base_url}}"],
+							"path": ["facilities", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "facility_id_here"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Get All Credentials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/credentials",
+							"host": ["{{base_url}}"],
+							"path": ["credentials"]
+						}
+					}
+				},
+				{
+					"name": "Get My Credentials",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/credentials/my-credentials",
+							"host": ["{{base_url}}"],
+							"path": ["credentials", "my-credentials"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get My Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/notifications",
+							"host": ["{{base_url}}"],
+							"path": ["notifications"]
+						}
+					}
+				},
+				{
+					"name": "Mark Notification as Read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"notificationId\": \"notification_id_here\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/notifications/mark-read",
+							"host": ["{{base_url}}"],
+							"path": ["notifications", "mark-read"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
+
