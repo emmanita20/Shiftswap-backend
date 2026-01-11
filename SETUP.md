@@ -95,7 +95,19 @@ curl -X POST http://localhost:3000/api/auth/register \
     "email": "sarah.johnson@hospital.com",
     "password": "securepassword123",
     "role": "staff",
+    "phoneNumber": "+1234567890",
     "department": "Nursing"
+  }'
+
+# Or register without department (optional):
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dr. Sarah Johnson",
+    "email": "sarah.johnson@hospital.com",
+    "password": "securepassword123",
+    "role": "staff",
+    "phoneNumber": "+1234567890"
   }'
 
 # Register a Doctor
@@ -106,6 +118,7 @@ curl -X POST http://localhost:3000/api/auth/register \
     "email": "michael.chen@hospital.com",
     "password": "securepassword123",
     "role": "staff",
+    "phoneNumber": "+1234567890",
     "department": "Emergency Medicine"
   }'
 
@@ -117,6 +130,7 @@ curl -X POST http://localhost:3000/api/auth/register \
     "email": "james.wilson@hospital.com",
     "password": "securepassword123",
     "role": "staff",
+    "phoneNumber": "+1234567890",
     "department": "Laboratory"
   }'
 
@@ -128,6 +142,7 @@ curl -X POST http://localhost:3000/api/auth/register \
     "email": "emily.martinez@hospital.com",
     "password": "securepassword123",
     "role": "manager",
+    "phoneNumber": "+1234567890",
     "department": "Nursing"
   }'
 ```

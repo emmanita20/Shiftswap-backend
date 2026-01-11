@@ -27,8 +27,8 @@ Create a new user account.
   "email": "group@example.com",
   "password": "password44",
   "role": "staff",
-  "department": "Sales",
-  "facility": "facility_id_optional"
+  "phoneNumber": "+1234567890",
+  "department": "Sales" // optional - can be added later via profile update
 }
 ```
 

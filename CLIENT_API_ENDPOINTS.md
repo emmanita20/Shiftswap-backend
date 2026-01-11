@@ -13,11 +13,25 @@ Base URL (local development):
 ### Auth
 - **POST** `/auth/register`
   - Register staff or manager.
-  - Body: `name, email, password, role ("staff" | "manager"), department`
+  - Body: `name, email, password, role ("staff" | "manager"), phoneNumber (optional), department (optional)`
 
 - **POST** `/auth/login`
   - Login with email + password.
   - Returns `user` + `token` (JWT).
+  - **Example Request:**
+    ```javascript
+    const response = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: 'emmanita20@gmail.com',
+        password: 'yourpassword'
+      })
+    });
+    const data = await response.json();
+    // data.success === true on success
+    // data.data.token contains JWT token
+    ```
 
 - **POST** `/auth/logout`
   - Stateless logout confirmation (remove token client-side).

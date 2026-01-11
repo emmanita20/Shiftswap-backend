@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Dr. Sarah Johnson\",\n  \"email\": \"sarah.johnson@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"staff\",\n  \"department\": \"Nursing\"\n}"
+							"raw": "{\n  \"name\": \"Dr. Sarah Johnson\",\n  \"email\": \"sarah.johnson@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"staff\",\n  \"phoneNumber\": \"+1234567890\",\n  \"department\": \"Nursing\" // optional\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/auth/register",
@@ -42,7 +42,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Dr. Emily Martinez\",\n  \"email\": \"emily.martinez@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"manager\",\n  \"department\": \"Nursing\"\n}"
+							"raw": "{\n  \"name\": \"Dr. Emily Martinez\",\n  \"email\": \"emily.martinez@hospital.com\",\n  \"password\": \"securepassword123\",\n  \"role\": \"manager\",\n  \"phoneNumber\": \"+1234567890\",\n  \"department\": \"Nursing\" // optional\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/auth/register",

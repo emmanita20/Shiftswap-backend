@@ -182,7 +182,8 @@ Authorization: Bearer <your-token>
   "email": "sarah.johnson@hospital.com",
   "password": "securepassword123",
   "role": "staff",
-  "department": "Nursing"
+  "phoneNumber": "+1234567890",
+  "department": "Nursing" // optional - can be omitted
 }
 ```
 
@@ -191,7 +192,8 @@ Authorization: Bearer <your-token>
 - `email` (required): Email address (must be unique)
 - `password` (required): Password (minimum 6 characters)
 - `role` (required): Either `"staff"` or `"manager"`
-- `department` (required): Hospital department (e.g., "Nursing", "Emergency Medicine", "Laboratory")
+- `phoneNumber` (optional): Phone number for contact/emergency notifications
+- `department` (optional): Hospital department (e.g., "Nursing", "Emergency Medicine", "Laboratory") - can be added later via profile update
 
 **Success Response (201):**
 ```json
@@ -752,7 +754,8 @@ Authorization: Bearer <manager-token>
   "email": "sarah.johnson@hospital.com",
   "password": "securepassword123",
   "role": "staff",
-  "department": "Nursing"
+  "phoneNumber": "+1234567890",
+  "department": "Nursing" // optional - can be omitted
 }
 ```
 8. **Click "Send"**
